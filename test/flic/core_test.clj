@@ -1,8 +1,8 @@
 (ns flic.core-test
-  (require [midje.sweet :refer :all]
-           [flic.core :refer :all]
-           [flic.groups :as groups]
-           [flic.store :as store]))
+  (:require [midje.sweet :refer :all]
+            [flic.core :refer :all]
+            [flic.groups :as groups]
+            [flic.store :as store]))
 
 (def user { :id 1 })
 
@@ -29,32 +29,32 @@
 
 ; -- FEATURE TESTS -------------------------------------------------------------
 (fact
-  "we can add and remove a user from a feature"
-  (backing-store! (store/in-memory-store))
-  (active? :fact-1 user) => false
-  (activate-user! :fact-1 user)
-  (active? :fact-1 user) => true
-  (deactivate-user! :fact-1 user)
-  (active? :fact-1 user) => false)
+ "we can add and remove a user from a feature"
+ (backing-store! (store/in-memory-store))
+ (active? :fact-1 user) => false
+ (activate-user! :fact-1 user)
+ (active? :fact-1 user) => true
+ (deactivate-user! :fact-1 user)
+ (active? :fact-1 user) => false)
 
 (fact
-  "we can init a store with some initial data"
-  (backing-store! (store/in-memory-store { :fact-1 { :users #{ 2 } } }))
-  (active? :fact-1 user) => false)
+ "we can init a store with some initial data"
+ (backing-store! (store/in-memory-store { :fact-1 { :users #{ 2 } } }))
+ (active? :fact-1 user) => false)
 
 (fact
-  "we can add and remove groups from a feature "
-  (backing-store! (store/in-memory-store))
-  (groups/define-group :all (fn [_] true))
-  (active? :fact-1 user) => false
-  (activate-group! :fact-1 :all)
-  (active? :fact-1 user) => true)
+ "we can add and remove groups from a feature "
+ (backing-store! (store/in-memory-store))
+ (groups/define-group :all (fn [_] true))
+ (active? :fact-1 user) => false
+ (activate-group! :fact-1 :all)
+ (active? :fact-1 user) => true)
 
 (fact
-  "we can add non existing groups and itll just return false which is not nice"
-  (backing-store! (store/in-memory-store))
-  (activate-group! :fact-1 :nope)
-  (active? :fact-1 user) => false)
+ "we can add non existing groups and itll just return false which is not nice"
+ (backing-store! (store/in-memory-store))
+ (activate-group! :fact-1 :nope)
+ (active? :fact-1 user) => false)
 
 (fact
   "we can activate everyone easily"

@@ -1,7 +1,7 @@
 (ns flic.core
-  (require [biscuit.core :as digest]
-           [flic.groups :as groups]
-           [flic.store :refer :all]))
+  (:require [biscuit.core :as digest]
+            [flic.groups :as groups]
+            [flic.store :refer :all]))
 
 (def ^:private store (atom nil))
 
